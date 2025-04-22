@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <ctype.h>
+int main() {
+ char input[1000];
+ int capital_count = 0;
+ printf("Enter a string: ");
+ fgets(input, sizeof(input), stdin); // Read the input string
+ for (int i = 0; input[i] != '\0'; i++) {
+ if (isupper(input[i])) {
+ printf("%c is a capital letter\n", input[i]);
+ capital_count++;
+ } else if (isalpha(input[i])) {
+ printf("%c is not a capital letter\n", input[i]);
+ }
+ }
+ printf("Total number of capital letters: %d\n", capital_count);
+ return 0;
+}
