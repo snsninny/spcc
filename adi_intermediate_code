@@ -1,0 +1,30 @@
+expr = input("Enter the Expression: ")
+ops = ['*', '/', '+', '-']
+tmp = ord('Z')
+expr = list(expr)
+last_temp = ""  # Track the last temporary variable used
+
+def get_operand(i, step):
+    while 0 <= i < len(expr):
+        if expr[i].isalnum():
+            ch = expr[i]
+            expr[i] = '$'
+            return ch
+        i += step
+
+print("\nIntermediate Code:")
+for op in ops:
+    for i in range(len(expr)):
+        if expr[i] == op:
+            left = get_operand(i - 1, -1)
+            right = get_operand(i + 1, 1)
+            temp = chr(tmp)
+            print(f"{temp} := {left} {op} {right}")
+            expr[i] = temp
+            last_temp = temp
+            tmp -= 1
+
+for i in range(len(expr)):
+    if expr[i] == '=':
+        print(f"{expr[i-1]} := {last_temp if last_temp else expr[i+1]}")
+        break
